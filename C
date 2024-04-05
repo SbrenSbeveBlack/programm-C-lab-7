@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char firstName[50];
+    char lastName[50];
+    int yearOfBirth;
+} human;
+
+int main() {
+    human humans1[4];
+    human humans2[4];
+
+    // Ввод данных для первого массива
+    for (int i = 0; i < 4; i++) {
+        printf("Введите имя, фамилию и год рождения для человека %d: ", i+1);
+        scanf("%s %s %d", humans1[i].firstName, humans1[i].lastName, &humans1[i].yearOfBirth);
+    }
+
+    // Копирование и сортировка элементов по годам рождения
+    memcpy(humans2, humans1, sizeof(humans1));
+    for (int i = 0; i < 4; i++) {
+        for (int j = i + 1; j < 4; j++) {
+            if (humans2[i].yearOfBirth > humans2[j].yearOfBirth) {
+                human temp = humans2[i];
+                humans2[i] = humans2[j];
+                humans2[j] = temp;
+            }
+        }
+    }
+
+    // Вывод отсортированного массива
+    printf("Отсортированный массив:\n");
+    for (int i = 0; i < 4; i++) {
+        printf("%s %s (%d)\n", humans2[i].firstName, humans2[i].lastName, humans2[i].yearOfBirth);
+    }
+
+    return 0;
+}
